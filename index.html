@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For You ❤️</title>
-    <!-- นำเข้าฟอนต์ Prompt เพื่อให้แสดงผลภาษาไทยสวยงาม -->
+    <title>ดีกันนะคนดี 🥺❤️</title>
+    <!-- นำเข้าฟอนต์ Prompt ให้แสดงผลสวยงาม -->
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://googleapis.com/css2?family=Prompt:wght@300;400;600&display=swap" rel="stylesheet">
@@ -29,6 +29,7 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             max-width: 400px;
             width: 90%;
+            position: relative;
         }
         h1 {
             color: #ff4b6e;
@@ -43,42 +44,127 @@
         }
         .emoji-display {
             font-size: 80px;
-            margin: 20px 0;
+            margin: 15px 0;
             display: block;
         }
-        /* สไตล์ปุ่มกดไปยังลิงก์เพลง */
-        .btn-link {
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .btn {
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-family: 'Prompt', sans-serif;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        /* ปุ่มยอมให้ง้อ */
+        .btn-yes {
+            background-color: #4ac29a;
+            color: white;
+            box-shadow: 0 5px 15px rgba(74, 194, 154, 0.4);
+        }
+        .btn-yes:hover {
+            background-color: #3b9c7b;
+            transform: scale(1.05);
+        }
+        /* ปุ่มงอนอยู่ (ปุ่มที่วิ่งหนี) */
+        .btn-no {
+            background-color: #ff4b6e;
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 75, 110, 0.4);
+            position: absolute; /* จำเป็นสำหรับการขยับหนี */
+            transition: all 0.1s ease;
+        }
+        /* ส่วนข้อความง้อและปุ่มเพลง */
+        #hidden-message {
+            display: none;
+            margin-top: 25px;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        .btn-music {
             display: inline-block;
             background-color: #ff4b6e;
             color: white;
             text-decoration: none;
-            padding: 14px 35px;
-            font-size: 18px;
+            padding: 12px 30px;
+            font-size: 16px;
             font-weight: 600;
             border-radius: 50px;
-            transition: 0.2s;
+            margin-top: 15px;
             box-shadow: 0 5px 15px rgba(255, 75, 110, 0.4);
-            width: 70%;
+            transition: transform 0.2s;
         }
-        .btn-link:hover {
+        .btn-music:hover {
             background-color: #e03e5d;
             transform: scale(1.05);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 
-    <div class="card">
-        <h1>ถามคำถามหน่อยนะ 🫣</h1>
-        <span class="emoji-display">🫰</span>
-        <p>
-            เธอคนนี้มีหวานใจหรือยังครับ? ขอจีบสาวคนนี้ได้ไหมนะ 😳<br>
-            <span style="color: #ff4b6e; font-size: 14px; font-weight: 600;">(เย้! ดีใจจังเลย 🥰 งั้นตั้งแต่วันนี้ไป เค้าขอเดินหน้าจีบสาวคนนี้อย่างเป็นทางการเลยนะ! 💖)</span>
-        </p>
-        
-        <!-- เปลี่ยนลิงก์เพลงของคุณที่ช่อง href="..." ด้านล่างนี้ได้เลยครับ -->
-        <a href="https://youtube.com" target="_blank" class="btn-link">🎵 กดตรงนี้เพื่อฟังเพลงนะ</a>
+    <div class="card" id="main-card">
+        <div id="ask-section">
+            <h1>เค้าขอโทษนะคนดี.. 🥺</h1>
+            <span class="emoji-display" id="main-emoji">🫰</span>
+            <p>หายงอนเค้านะครับคนเก่ง ให้เค้าง้อเธอได้ไหม? 🙏❤️</p>
+            
+            <div class="btn-group" style="height: 60px; position: relative;">
+                <!-- ปุ่มตอบตกลง -->
+                <button class="btn btn-yes" onclick="forgiveMe()">ยอมให้ง้อก็ได้ 💖</button>
+                <!-- ปุ่มงอน (ปุ่มที่ขยับหนี) -->
+                <button class="btn btn-no" id="runaway-btn" onmouseover="moveButton()" onclick="moveButton()">งอนอยู่ ไม่ให้ง้อ! 😤</button>
+            </div>
+        </div>
+
+        <!-- หน้าต่างที่จะแสดงเมื่อยอมให้ง้อ -->
+        <div id="hidden-message">
+            <span class="emoji-display">🥰🎈</span>
+            <h2 style="color: #4ac29a; margin-bottom: 10px;">เย้! ดีกันแล้วนะ รักที่สุดเลย ❤️</h2>
+            <p style="color: #555; font-size: 16px;">
+                ตั้งแต่วันนี้ไปเค้าจะดูแลเธอให้ดีกว่าเดิม ไม่ดื้อไม่ซนแล้วครับ 🥺✨<br>
+                เค้าตั้งใจเลือกเพลงนี้มาให้เธอฟังด้วยนะ กดฟังดูสิ...
+            </p>
+            <!-- 📌 เปลี่ยนลิงก์เพลงของคุณที่ช่อง href="..." ด้านล่างนี้ได้เลยครับ -->
+            <a href="https://youtube.com" target="_blank" class="btn-music">🎵 กดตรงนี้เพื่อฟังเพลงที่เค้าให้เธอนะ</a>
+        </div>
     </div>
 
+    <script>
+        // ฟังก์ชันทำให้ปุ่มงอนขยับหนี
+        function moveButton() {
+            var btn = document.getElementById('runaway-btn');
+            var card = document.getElementById('main-card');
+            
+            // คำนวณขอบเขตสูงสุดที่ปุ่มจะขยับไปได้ภายในตัวการ์ด
+            var maxWidth = card.clientWidth - btn.clientWidth - 40;
+            var maxHeight = card.clientHeight - btn.clientHeight - 40;
+            
+            // สุ่มตำแหน่งใหม่
+            var randomX = Math.floor(Math.random() * maxWidth) + 20;
+            var randomY = Math.floor(Math.random() * maxHeight) + 20;
+            
+            // สั่งให้ปุ่มย้ายไปตำแหน่งใหม่
+            btn.style.left = randomX + 'px';
+            btn.style.top = randomY + 'px';
+        }
+
+        // ฟังก์ชันเมื่อยอมให้ง้อ
+        function forgiveMe() {
+            // ซ่อนกล่องคำถามและปุ่มเดิม
+            document.getElementById('ask-section').style.display = 'none';
+            // แสดงข้อความง้อและปุ่มเพลง
+            document.getElementById('hidden-message').style.display = 'block';
+        }
+    </script>
 </body>
 </html>
