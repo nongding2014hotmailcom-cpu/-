@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For You ❤️</title>
-    <!-- นำเข้าฟอนต์ Prompt ให้แสดงผลภาษาไทยสวยงาม -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- นำเข้าฟอนต์ Prompt เพื่อให้แสดงผลภาษาไทยสวยงาม -->
+    <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com" rel="stylesheet">
+    <link href="https://googleapis.com/css2?family=Prompt:wght@300;400;600&display=swap" rel="stylesheet">
     
     <style>
         body {
@@ -39,108 +39,46 @@
             color: #555;
             font-size: 16px;
             margin-bottom: 25px;
-        }
-        .btn-group {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            align-items: center;
-        }
-        .btn {
-            background-color: #ff4b6e;
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            font-size: 18px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-family: 'Prompt', sans-serif;
-            transition: 0.2s;
-            box-shadow: 0 5px 15px rgba(255, 75, 110, 0.4);
-            width: 80%;
-        }
-        .btn:hover {
-            background-color: #e03e5d;
-            transform: scale(1.05);
-        }
-        /* สไตล์ของปุ่มควบคุมเพลง */
-        .btn-music {
-            background-color: #4ac29a;
-            box-shadow: 0 5px 15px rgba(74, 194, 154, 0.4);
-        }
-        .btn-music:hover {
-            background-color: #3b9c7b;
+            line-height: 1.6;
         }
         .emoji-display {
             font-size: 80px;
             margin: 20px 0;
             display: block;
         }
-        #hidden-message {
-            display: none;
-            margin-top: 20px;
-            animation: fadeIn 1s ease-in-out;
+        /* สไตล์ปุ่มกดไปยังลิงก์เพลง */
+        .btn-link {
+            display: inline-block;
+            background-color: #ff4b6e;
+            color: white;
+            text-decoration: none;
+            padding: 14px 35px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: 0.2s;
+            box-shadow: 0 5px 15px rgba(255, 75, 110, 0.4);
+            width: 70%;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .btn-link:hover {
+            background-color: #e03e5d;
+            transform: scale(1.05);
         }
     </style>
 </head>
 <body>
 
-    <!-- แท็กสำหรับใส่เพลง (ใส่ลิงก์เพลงที่คุณต้องการในช่อง src) -->
-    <audio id="bg-music" src="https://soundhelix.com" loop></audio>
-
     <div class="card">
         <h1>ถามคำถามหน่อยนะ 🫣</h1>
         <span class="emoji-display">🫰</span>
-        <p>เธอคนนี้มีหวานใจหรือยังครับ? ขอจีบสาวคนนี้ได้ไหมนะ 😳</p>
+        <p>
+            เธอคนนี้มีหวานใจหรือยังครับ? ขอจีบสาวคนนี้ได้ไหมนะ 😳<br>
+            <span style="color: #ff4b6e; font-size: 14px; font-weight: 600;">(เย้! ดีใจจังเลย 🥰 งั้นตั้งแต่วันนี้ไป เค้าขอเดินหน้าจีบสาวคนนี้อย่างเป็นทางการเลยนะ! 💖)</span>
+        </p>
         
-        <div class="btn-group">
-            <!-- ปุ่มจีบสาว -->
-            <button id="ask-btn" class="btn" onclick="revealLove()">ได้ดิ ไม่ได้ หรอก</button>
-            <!-- ปุ่มควบคุมเพลง -->
-            <button id="music-btn" class="btn btn-music" onclick="toggleMusic()">🎵 เปิดเพลงคลอเบาๆ</button>
-        </div>
-
-        <!-- ข้อความที่จะแสดงหลังจากกดปุ่มแล้ว -->
-        <div id="hidden-message">
-            <h2 style="color: #ff4b6e; margin-bottom: 10px;">เย้! ดีใจจังเลย 🥰</h2>
-            <p style="color: #ff4b6e; font-size: 18px; font-weight: 600; margin: 0;">
-                งั้นตั้งแต่วันนี้ไป เค้าขอเดินหน้าจีบสาวคนนี้อย่างเป็นทางการเลยนะ! 💖
-            </p>
-        </div>
+        <!-- เปลี่ยนลิงก์เพลงของคุณที่ช่อง href="..." ด้านล่างนี้ได้เลยครับ -->
+        <a href="https://youtube.com" target="_blank" class="btn-link">🎵 กดตรงนี้เพื่อฟังเพลงนะ</a>
     </div>
 
-    <script>
-        // ฟังก์ชันแสดงข้อความเมื่อกดปุ่มตอบตกลง
-        function revealLove() {
-            document.getElementById('ask-btn').style.display = 'none';
-            document.getElementById('hidden-message').style.display = 'block';
-            
-            // เล่นเพลงอัตโนมัติทันทีเมื่อเขากดตกลง (ถ้าเขายังไม่ได้กดเปิดเพลงก่อนหน้า)
-            var music = document.getElementById('bg-music');
-            var musicBtn = document.getElementById('music-btn');
-            if (music.paused) {
-                music.play();
-                musicBtn.innerHTML = "⏸️ ปิดเสียงเพลง";
-            }
-        }
-
-        // ฟังก์ชัน เปิด/ปิด เพลง
-        function toggleMusic() {
-            var music = document.getElementById('bg-music');
-            var musicBtn = document.getElementById('music-btn');
-            
-            if (music.paused) {
-                music.play();
-                musicBtn.innerHTML = "⏸️ ปิดเสียงเพลง";
-            } else {
-                music.pause();
-                musicBtn.innerHTML = "🎵 เปิดเพลงคลอเบาๆ";
-            }
-        }
-    </script>
 </body>
 </html>
