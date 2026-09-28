@@ -140,23 +140,38 @@
     </div>
 
     <script>
-        // ฟังก์ชันทำให้ปุ่มงอนขยับหนี
-        function moveButton() {
-            var btn = document.getElementById('runaway-btn');
-            var card = document.getElementById('main-card');
-            
-            // คำนวณขอบเขตสูงสุดที่ปุ่มจะขยับไปได้ภายในตัวการ์ด
-            var maxWidth = card.clientWidth - btn.clientWidth - 40;
-            var maxHeight = card.clientHeight - btn.clientHeight - 40;
-            
-            // สุ่มตำแหน่งใหม่
-            var randomX = Math.floor(Math.random() * maxWidth) + 20;
-            var randomY = Math.floor(Math.random() * maxHeight) + 20;
-            
-            // สั่งให้ปุ่มย้ายไปตำแหน่งใหม่
-            btn.style.left = randomX + 'px';
-            btn.style.top = randomY + 'px';
-        }
+       ```javascript
+// ฟังก์ชันทำให้ปุ่มงอนขยับหนีแบบระยะใกล้
+function moveButton() {
+    var btn = document.getElementById('runaway-btn');
+    var card = document.getElementById('main-card');
+
+    // ระยะที่ปุ่มจะหนีจากตำแหน่งเดิม
+    var moveRange = 80;
+
+    // ตำแหน่งปัจจุบัน
+    var currentLeft = btn.offsetLeft;
+    var currentTop = btn.offsetTop;
+
+    // สุ่มทิศทางและระยะทางแบบไม่ไกล
+    var randomX = currentLeft + (Math.random() * moveRange * 2 - moveRange);
+    var randomY = currentTop + (Math.random() * moveRange * 2 - moveRange);
+
+    // กำหนดขอบเขต ไม่ให้ปุ่มออกนอกการ์ด
+    var minX = 10;
+    var minY = 10;
+    var maxX = card.clientWidth - btn.offsetWidth - 10;
+    var maxY = card.clientHeight - btn.offsetHeight - 10;
+
+    // จำกัดตำแหน่งให้อยู่ในขอบเขต
+    randomX = Math.max(minX, Math.min(randomX, maxX));
+    randomY = Math.max(minY, Math.min(randomY, maxY));
+
+    // ย้ายปุ่ม
+    btn.style.left = randomX + 'px';
+    btn.style.top = randomY + 'px';
+}
+```
 
         // ฟังก์ชันเมื่อยอมให้ง้อ
         function forgiveMe() {
